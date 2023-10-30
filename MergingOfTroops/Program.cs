@@ -52,7 +52,7 @@ namespace MergingOfTroops
             Console.WriteLine("Отряд второй: ");
             ShowSoldiers(_soldiers2);
 
-            MoveSoldiersToAnotherDivision(ref _soldiers1,ref _soldiers2);
+            MoveSoldiersToAnotherDivision(_soldiers1,_soldiers2);
 
             Console.ReadKey();
             Console.Clear();
@@ -78,10 +78,13 @@ namespace MergingOfTroops
             }
         }
 
-        private void MoveSoldiersToAnotherDivision(ref List<Soldier> soldiers1,ref List<Soldier> soldiers2)
+        private void MoveSoldiersToAnotherDivision(List<Soldier> soldiers1, List<Soldier> soldiers2)
         {
-            soldiers2 = soldiers2.Union(soldiers1.Where(soldiers => soldiers.Name.StartsWith("Б"))).ToList();
-            soldiers1 = soldiers1.Except(soldiers2).ToList();
+            string startWithB = "Б";
+
+            var soldiers = soldiers1.Where(soldier => soldier.Name.StartsWith(startWithB)).ToList();
+            soldiers1.RemoveAll(soldier => soldier.Name.Contains(startWithB));
+            soldiers2.AddRange(soldiers);
         }
     }
 
