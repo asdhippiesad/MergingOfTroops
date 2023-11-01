@@ -83,8 +83,8 @@ namespace MergingOfTroops
             string filterByPrefix = "Б";
 
             var soldiers = _soldiers1.Where(soldier => soldier.Name.StartsWith(filterByPrefix));
-            _soldiers2 = _soldiers2.Union(soldiers).ToList();
             _soldiers1 = _soldiers1.Except(soldiers).ToList();
+            _soldiers2 = _soldiers2.Union(soldiers).ToList();
         }
 
         class Soldier
